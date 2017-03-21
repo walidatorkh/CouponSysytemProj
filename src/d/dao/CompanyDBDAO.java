@@ -1,6 +1,5 @@
 package d.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -216,8 +215,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public void linkCompanyCoupon(Company company, Coupon coupon) throws CouponSystemsException, SQLException {
-		
+	public void linkCompanyCoupon(long companyId, Coupon coupon) throws CouponSystemsException, SQLException {
 
 		Connection con = null;
 		try {
@@ -226,7 +224,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			PreparedStatement pstmt = con
 					.prepareStatement("INSERT INTO Company_Coupon (COMPANY_ID , COUPON_ID) values (?,?)");
 
-			company = read(company);
+			Company company = getCompanyById(companyId);
 			coupon = couponDAO.read(coupon);
 
 			pstmt.setLong(1, company.getId());
@@ -304,16 +302,12 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public void removeCompany(Company company) {
+	public void removeCompany(long companyId) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void updateCompany(Company company) {
-		// TODO Auto-generated method stub
-
-	}
+    
 
 	@Override
 	public Company getCompany(long id) {
@@ -337,6 +331,82 @@ public class CompanyDBDAO implements CompanyDAO {
 	public void removeCompanyCoupon(Company company, Coupon coupon) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Company getCompanyById(long id) throws CouponSystemsException, SQLException {
+		Connection con = null;
+		Company company = new Company();
+		try {
+			// get con from pool
+
+			String query = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			query = "select id,comp_name,password,email from COMPANY where ID = ?";
+			con = ConnectionPool.getInstance().getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setLong(1, id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				company.setId(rs.getLong("ID"));
+				company.setCompName(rs.getString("COMP_NAME"));
+				company.setPassword(rs.getString("PASSWORD"));
+				company.setEmail(rs.getString("EMAIL"));
+			}
+
+		} catch (SQLException e) {
+			throw new CouponSystemsException("read failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
+
+		return company;
+	}
+
+	@Override
+	public Company getCompanyByEmail(String email) throws CouponSystemsException, SQLException {
+		Connection con = null;
+		Company company = new Company();
+		try {
+			// get con from pool
+
+			String query = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			query = "select id,comp_name,password,email from COMPANY where email = ?";
+			con = ConnectionPool.getInstance().getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				company.setId(rs.getLong("ID"));
+				company.setCompName(rs.getString("COMP_NAME"));
+				company.setPassword(rs.getString("PASSWORD"));
+				company.setEmail(rs.getString("EMAIL"));
+			}
+
+		} catch (SQLException e) {
+			throw new CouponSystemsException("read failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
+
+		return company;
+	}
+
+	@Override
+	public void updateCompany(Company company) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

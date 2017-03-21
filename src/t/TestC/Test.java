@@ -27,11 +27,11 @@ public class Test {
 			Company company = new Company("TestCompany1", "1111", "vasya@vasya.com");
 			adminfacade.createCompany(company);
 			
-			System.out.println("created company " + adminfacade.getCompany(company));
+//			System.out.println("created company " + adminfacade.createCompany(long));
 			System.out.println("???ili gotovo???");
 			company.setPassword("1111");
 			adminfacade.updateCompany(company);
-			System.out.println("updated company " + adminfacade.getCompany(company));
+			//System.out.println("updated company " + adminfacade.getCompany(company));
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
 			
 			Customer customer = new Customer("TestCustomer1", "123456", "itsik190@gmail.com");
@@ -53,18 +53,18 @@ public class Test {
 			cal.set(2017, Calendar.MARCH, 5);
 			Date future = new Date(cal.getTime().getTime());
 			cal.set(2017, Calendar.FEBRUARY, 23);
-//			long ts = System.currentTimeMillis();
+			long ts = System.currentTimeMillis();
 			Date past = new Date(cal.getTime().getTime());
 			
 			Coupon coupon = new Coupon("TestCoupon1", past, future, 5, CouponType.FOOD, "qwert", 35432.552454, "Image.com");
-			companyfacade.createCoupon(coupon);
+			companyfacade.createCoupon(coupon, ts);
 			System.out.println("company get coupon " + companyfacade.getCoupon(coupon));
 			
 			coupon.setAmount(10);
 			companyfacade.updateCoupon(coupon);
 			System.out.println("company update coupon " + companyfacade.getCoupon(coupon));
 			
-			System.out.println("company get all my coupons " + companyfacade.getAllMyCompanyCoupons());
+			System.out.println("company get all my coupons " + companyfacade.getAllMyCompanyCoupons(ts));
 			
 			System.out.println("company get coupons by date" + companyfacade.getCouponsByDate(past));
 			
@@ -72,16 +72,16 @@ public class Test {
 			System.out.println("company get coupons by type" + companyfacade.getCouponsByType(CouponType.FOOD));
 			
 			
-			Coupon coupon2 = new Coupon("TestCoupon2", past, past, 0, CouponType.HEALTH, "asdfg", 2.2, "Image2.com");
-			companyfacade.createCoupon(coupon2);
-			System.out.println("company get coupon 2 " + companyfacade.getCoupon(coupon2));
+//			Coupon coupon2 = new Coupon("TestCoupon2", past, past, 0, CouponType.HEALTH, "asdfg", 2.2, "Image2.com");
+//			companyfacade.createCoupon(coupon2);
+//			System.out.println("company get coupon 2 " + companyfacade.getCoupon(coupon2));
 			
 			
-			coupon2.setImage("new new image");;
-			companyfacade.updateCoupon(coupon2);
-			System.out.println("company update coupon2 " + companyfacade.getCoupon(coupon2));
-			
-			System.out.println("company get all my coupons  should be 2: " + companyfacade.getAllMyCompanyCoupons());
+//			coupon2.setImage("new new image");;
+//			companyfacade.updateCoupon(coupon2);
+//			System.out.println("company update coupon2 " + companyfacade.getCoupon(coupon2));
+//			
+//			System.out.println("company get all my coupons  should be 2: " + companyfacade.getAllMyCompanyCoupons());
 			
 			System.out.println("company get coupons by date" + companyfacade.getCouponsByDate(past));
 			
@@ -91,7 +91,7 @@ public class Test {
 			
 			
 			CustomerFacade customerfacade = (CustomerFacade) CouponSystem.getInstance().login("vasiliy555@gmail.com","1111", ClientType.CUSTOMER);
-			customerfacade.purchaseCoupon(coupon);
+//			customerfacade.purchaseCoupon(coupon);
 			
 			
 			System.out.println("get customer purchased coupon " + customerfacade.getAllPurchasedCoupons());
@@ -151,17 +151,17 @@ public class Test {
 			
 			
 			
-			Thread.sleep(2000);
-			System.out.println("company get all my coupons  should be 1: " + companyfacade.getAllMyCompanyCoupons());
-			System.out.println("all coupons test delete task " + adminfacade.getAllCoupon());
-			
-			
-			companyfacade.removeCoupon(coupon2);
-			System.out.println("removed coupon2");
-			
-			
-			
-			companyfacade.removeCoupon(coupon);
+//			Thread.sleep(2000);
+//			System.out.println("company get all my coupons  should be 1: " + companyfacade.getAllMyCompanyCoupons());
+//			System.out.println("all coupons test delete task " + adminfacade.getAllCoupon());
+//			
+//			
+//			companyfacade.removeCoupon(coupon2);
+//			System.out.println("removed coupon2");
+//			
+//			
+//			
+//			companyfacade.removeCoupon(coupon);
 			System.out.println("removed coupon");
 			
 			System.out.println("get customer purchased coupon should not be any after delete " + customerfacade.getAllPurchasedCoupons());
@@ -173,8 +173,8 @@ public class Test {
 			
 			System.out.println("get all customers " + adminfacade.getAllCustomers());
 			
-			adminfacade.removeCompany(company);
-			System.out.println("removed company");
+//			adminfacade.removeCompany(company);
+//			System.out.println("removed company");
 			
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
 			System.out.println("00000000000");

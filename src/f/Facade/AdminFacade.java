@@ -26,8 +26,8 @@ public class AdminFacade implements ClientFacade {
 		}
 	}
 	//remove company
-	public void removeCompany(Company company) throws CouponSystemsException, SQLException {
-		company = compDAO.read(company);
+	public void removeCompany(long companyId) throws CouponSystemsException, SQLException {
+		Company company = compDAO.getCompanyById(companyId);
 		ArrayList<Coupon> allThisCompanyCoupons;
 		
 		allThisCompanyCoupons = compDAO.getCouponsByCompany(company);
@@ -39,14 +39,14 @@ public class AdminFacade implements ClientFacade {
 			compDAO.removeCompanyCoupon(company, coupon);
 			couponDAO.delete(company);
 			}
-		compDAO.removeCompany(company);
+		compDAO.removeCompany(companyId);
 		}
 	public void updateCompany(Company company)throws CouponSystemsException {
 		compDAO.updateCompany(company);
 	
 	}
-	public Company getCompany(Company company)throws CouponSystemsException, Throwable {
-		company = compDAO.read(company);
+	public Company getCompany(long companyId)throws CouponSystemsException, Throwable {
+		Company company = compDAO.getCompanyById(companyId);
 		if (company.getId()!= 0) {
 			return company;
 		}else {

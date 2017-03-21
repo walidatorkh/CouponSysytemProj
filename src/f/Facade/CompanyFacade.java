@@ -1,8 +1,9 @@
 package f.Facade;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import beans.dao.Company;
 import beans.dao.Coupon;
@@ -24,42 +25,50 @@ public class CompanyFacade implements ClientFacade {
 	public CompanyFacade() {
 
 	}
-
-	private CompanyFacade(Company company) throws CouponSystemsException, Throwable {
+	private CompanyFacade(Company company) throws CouponSystemsException, SQLException {
+		
 		this.company = compDAO.read(company);
+	
 
-	}
+}
 
-	public void createCoupon(Coupon coupon) throws CouponSystemsException, Throwable {
+	public void createCoupon(Coupon coupon, long companyId) throws CouponSystemsException, Throwable {
 		if (!couponDAO.titleExist(coupon)) {
 			CouponDAO.create(coupon);
-			compDAO.linkCompanyCoupon(company, coupon);
+			compDAO.linkCompanyCoupon(companyId, coupon);
 		} else {
 			throw new CouponSystemsException("This title exist");
 		}
 
 	}
-
-	public void removeCoupon(Coupon coupon) throws CouponSystemsException, Throwable {
+	
+	public void removeCoupon(Coupon coupon) throws CouponSystemsException, SQLException {
+		
 		coupon = couponDAO.read(coupon);
 		company = compDAO.read(company);
 		compDAO.unLinkCompanyCoupon(company, coupon);
 		customerDAO.unLinkCouponFromAllCustomers(coupon);
 		couponDAO.delete(coupon);
-	}
+	
+}
 
-	public void updateCoupon(Coupon coupon) throws CouponSystemsException, Throwable {
+
+	public void updateCoupon(Coupon coupon) throws CouponSystemsException, SQLException {
+		
 		couponDAO.update(coupon);
+	
+}
 
-	}
+	
 
 	public Coupon getCoupon(Coupon coupon) throws CouponSystemsException, Throwable {
 		coupon = couponDAO.read(coupon);
 		return coupon;
 	}
 
-	public Collection<Coupon> getAllMyCompanyCoupons() throws CouponSystemsException, Throwable {
+	public Collection<Coupon> getAllMyCompanyCoupons(long companyId) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> coupons = new ArrayList<>();
+		Company company = compDAO.getCompany(companyId);
 		coupons = compDAO.getCouponsByCompany(company);
 		return coupons;
 	}
@@ -97,11 +106,9 @@ public class CompanyFacade implements ClientFacade {
 	}
 
 	public CompanyFacade login(String email, String password) throws CouponSystemsException, Throwable {
-		Company company = new Company();
-		company.setEmail(email);
-		CompanyFacade companyFacade = new CompanyFacade(company);
-		company = compDAO.read(company);
-		if (company.getId() != 0 && password.equals(company.getPassword())) {
+		CompanyFacade companyFacade = new CompanyFacade();
+		Company company = compDAO.getCompanyById(id);
+		if (company.getId() != 0 /**&& password.equals(company.getPassword())*/) {
 			return companyFacade;
 		} else {
 			throw new CouponSystemsException("Company login not correct");
