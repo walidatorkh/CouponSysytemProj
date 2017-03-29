@@ -1,6 +1,5 @@
 package f.Facade;
 
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,60 +13,66 @@ import e.Exeptions.CouponSystemsException;
 public class AdminFacade implements ClientFacade {
 	private CompanyDAO compDAO = new CompanyDBDAO();
 	private CouponDAO couponDAO = new CouponDBDAO();
-	private CustomerDAO customerDAO = new CustomerDBDAO(); 
+	private CustomerDAO customerDAO = new CustomerDBDAO();
 	private final String ADMIN = "Admin";
-	
-	//Create company
+
+	// Create company
 	public void createCompany(Company company) throws Throwable {
 		if (!compDAO.nameExist(company)) {
 			compDAO.createCompany(company);
-		}else {
+		} else {
 			throw new CouponSystemsException("Name exist allready");
 		}
 	}
-	//remove company
+
+	// remove company
 	public void removeCompany(long companyId) throws CouponSystemsException, SQLException {
 		Company company = compDAO.getCompanyById(companyId);
 		ArrayList<Coupon> allThisCompanyCoupons;
-		
+
 		allThisCompanyCoupons = compDAO.getCouponsByCompany(company);
-		for  (Coupon coupon : allThisCompanyCoupons) {
+		for (Coupon coupon : allThisCompanyCoupons) {
 			ArrayList<Customer> allCustomers = (ArrayList<Customer>) customerDAO.getAllCustomers();
-			for(Customer customer : allCustomers) {
+			for (Customer customer : allCustomers) {
 				customerDAO.removeCustomerCoupon(customer, coupon);
 			}
 			compDAO.removeCompanyCoupon(company, coupon);
 			couponDAO.delete(company);
-			}
-		compDAO.removeCompany(companyId);
 		}
-	public void updateCompany(Company company)throws CouponSystemsException {
-		compDAO.updateCompany(company);
-	
+		compDAO.removeCompany(companyId);
 	}
-	public Company getCompany(long companyId)throws CouponSystemsException, Throwable {
+
+	public void updateCompany(Company company) throws CouponSystemsException {
+		compDAO.updateCompany(company);
+
+	}
+
+	public Company getCompany(long companyId) throws CouponSystemsException, Throwable {
 		Company company = compDAO.getCompanyById(companyId);
-		if (company.getId()!= 0) {
+		if (company.getId() != 0) {
 			return company;
-		}else {
+		} else {
 			return null;
 		}
-	
-		}
+
+	}
+
 	public Collection<Company> getAllCompanies() throws CouponSystemsException, Throwable {
 		ArrayList<Company> allCompanies = new ArrayList<>();
 		allCompanies = (ArrayList<Company>) compDAO.getAllCompanies();
 		return allCompanies;
 	}
-	//creating customer 
-	public void createCustomer(Customer customer)throws CouponSystemsException, Throwable {
+
+	// creating customer
+	public void createCustomer(Customer customer) throws CouponSystemsException, Throwable {
 		if (!customerDAO.nameExist(customer)) {
 			customerDAO.createCustomer(customer);
-		}else { 
+		} else {
 			throw new CouponSystemsException("Customer name already exist!");
 		}
-	
+
 	}
+
 	public void removeCustomer(Customer customer) throws CouponSystemsException, Throwable {
 		customer = customerDAO.read(customer);
 		ArrayList<Coupon> allCoupons = customerDAO.getCoupnsByCustomer(customer);
@@ -77,36 +82,52 @@ public class AdminFacade implements ClientFacade {
 		}
 		customerDAO.removeCustomer(customer);
 	}
+
 	public void updateCustomer(Customer customer) throws CouponSystemsException, Throwable {
 		customerDAO.updateCustomer(customer);
 	}
-	
-	//get customer by .... email or ..
+
+	// get customer by .... email or ..
 	public Customer getCustomer(Customer customer) throws CouponSystemsException, Throwable {
 		customer = customerDAO.read(customer);
 		return customer;
 	}
+
 	public Collection<Customer> getAllCustomers() throws CouponSystemsException {
 		ArrayList<Customer> allCustomers = new ArrayList<>();
 		allCustomers = customerDAO.getAllCoupons();
 		return allCustomers;
 	}
+
 	public Collection<Coupon> getAllCoupon() throws CouponSystemsException {
 		ArrayList<Coupon> allCoupons = new ArrayList<>();
 		return allCoupons;
 	}
-	//gets coupons by company
-	public Collection<Coupon> getCoupoByCompany(Company company)throws CouponSystemsException, Throwable {
+
+	// gets coupons by company
+	public Collection<Coupon> getCoupoByCompany(Company company) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> couponByCompany = new ArrayList<>();
 		couponByCompany = compDAO.getCouponsByCompany(company);
 		return couponByCompany;
 	}
-	public AdminFacade login (String email, String password) throws CouponSystemsException {
+
+	public AdminFacade login(String email, String password) throws CouponSystemsException {
 		if (email.equals(ADMIN) && password.equals(ADMIN)) {
 			return new AdminFacade();
-		}else {
+		} else {
 			throw new CouponSystemsException("Admin can't login");
 		}
+	}
 
-}
-}
+
+
+	
+
+	public Company getCompany(Company company) throws CouponSystemsException, Throwable {
+		company = compDAO.read(company);
+		if (company.getId() != 0) {
+			return company;
+		}else {
+				return null;
+	}
+}}

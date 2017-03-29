@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class DropDataFromTable {
 
 	public static void main(String[] args) {
-		String url = "jdbc:derby://localhost:1527/db5";
+		String url = "jdbc:derby://localhost:1527/sample;create=true";
 		String sqlCompany = "DROP TABLE COMPANY ";
 		String sqlCustomer = "DROP TABLE CUSTOMER";
 		String sqlCoupon = "DROP TABLE COUPON";

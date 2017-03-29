@@ -106,9 +106,10 @@ public class CompanyFacade implements ClientFacade {
 	}
 
 	public CompanyFacade login(String email, String password) throws CouponSystemsException, Throwable {
-		CompanyFacade companyFacade = new CompanyFacade();
-		Company company = compDAO.getCompanyById(id);
-		if (company.getId() != 0 /**&& password.equals(company.getPassword())*/) {
+		Company company = new Company();
+		company.setEmail(email);
+		CompanyFacade companyFacade = new CompanyFacade(company);
+		if (company.getId() != 0 && password.equals(company.getPassword())) {
 			return companyFacade;
 		} else {
 			throw new CouponSystemsException("Company login not correct");

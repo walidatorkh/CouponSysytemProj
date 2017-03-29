@@ -23,12 +23,12 @@ public class Test {
 			AdminFacade adminfacade = (AdminFacade) CouponSystem.getInstance().login("Admin", "Admin", ClientType.ADMIN);
 
 			System.out.println("Admin Facade test");
-			System.out.println();
+			System.out.println("===========");
 			Company company = new Company("TestCompany1", "1111", "vasya@vasya.com");
 			adminfacade.createCompany(company);
 			
-//			System.out.println("created company " + adminfacade.createCompany(long));
-			System.out.println("???ili gotovo???");
+			System.out.println("created company " + adminfacade.getCompany(company));
+//			System.out.println("???ili gotovo???");
 			company.setPassword("1111");
 			adminfacade.updateCompany(company);
 			//System.out.println("updated company " + adminfacade.getCompany(company));
@@ -46,7 +46,7 @@ public class Test {
 			
 			
 			System.out.println("Test Company Facade:");
-			System.out.println();
+			System.out.println("=========================");
 			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("itsik190@gmail.com", "1111", ClientType.COMPANY);
 			
 			Calendar cal = Calendar.getInstance();
