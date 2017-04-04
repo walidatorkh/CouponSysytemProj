@@ -11,7 +11,7 @@ public class InsertIntoTables {
 	public static void main(String[] args) {
 
 		// Defining DB url
-		String url = "jdbc:derby://localhost:1527/sample;create=true";
+		String url = "jdbc:derby://localhost:1527/sample;create=true;user=user;password=123";
 		String sqlInsertCompany = "INSERT INTO COMPANY (COMP_NAME, password, email) VALUES(?,?,?)";
 		String sqlInsertCustomer = "INSERT INTO CUSTOMER (CUST_NAME, password) VALUES(?,?)";
 		String sqlInsertCoupon = "INSERT INTO COUPON (TITLE, startdate, enddate, AMOUNT, MESSAGE, PRICE, IMAGE) VALUES(?,?,?,?,?,?,?)";

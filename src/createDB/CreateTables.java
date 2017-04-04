@@ -11,7 +11,7 @@ public class CreateTables {
 		
 						
 		//String url = "jdbc:derby://localhost:1527/igordb;user=igork;password=igork;create=true";
-		String url = "jdbc:derby://localhost:1527/sample;create=true";
+		String url = "jdbc:derby://localhost:1527/sample;create=true;user=user;password=123";
 		String sqlCompany = "CREATE TABLE COMPANY (id bigint primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), COMP_NAME varchar(25) unique, password varchar(10), email varchar(30))";
 		String sqlCustomer = "CREATE TABLE CUSTOMER(id bigint primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), CUST_NAME varchar(25) unique, password varchar(10),email varchar(30))";
 		String sqlCoupon = "CREATE TABLE COUPON (id bigint primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),TITLE varchar(25), startdate date, enddate date, type varchar(25), AMOUNT int, MESSAGE varchar(25), PRICE double, IMAGE varchar(25))";
@@ -30,7 +30,11 @@ public class CreateTables {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Tables: COMPANY, CUSTOMER, COUPON, CUSTOMERCOUPON, COMPANYCOUPON created");
+		System.out.println("Tables: COMPANY created");
+		System.out.println("Tables: CUSTOMER created");
+		System.out.println("Tables: COUPON created");
+		System.out.println("Tables: CUSTOMERCOUPON created");
+		System.out.println("Tables: COMPANYCOUPON created");
 
 	}
 

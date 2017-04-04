@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionPool {
 
 	//private final static String CONNECTION_STRING = "jdbc:derby://localhost:1527/igordb;create=true;name=igork;password=igork";
-	private final static String CONNECTION_STRING = "jdbc:derby://localhost:1527/sample;create=true;";
+	private final static String CONNECTION_STRING = "jdbc:derby://localhost:1527/sample;create=true;user=user;password=123";
 
 	private final static int POOL_SIZE = 10;
 

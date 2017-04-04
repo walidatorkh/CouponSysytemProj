@@ -10,8 +10,10 @@ public class Customer {
 	public String getEmail;
 	public Customer() {
 	}
-	public Customer(String name, String passwwor, String email) {
-		// TODO Auto-generated constructor stub
+	public Customer(String name, String password, String email) {
+		this.custName = name;
+		this.password = password;
+		this.getEmail = email;
 	}
 	public long getId() {
 		return id;

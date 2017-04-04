@@ -7,7 +7,7 @@ import java.util.Collection;
  * COMP_NAME varchar(25) unique, 
  * password varchar(10), 
  * email varchar(30)
- * @author igorh
+ * 
  *
  */
 public class Company {
@@ -23,6 +23,10 @@ public class Company {
 
 	public Company(String name, String password, String email) {
 		// TODO Auto-generated constructor stub
+		//this.id = id;
+		this.compName = name;
+		this.password = password;
+		this.email = email;
 	}
 
 	public long getId() {

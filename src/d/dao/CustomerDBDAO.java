@@ -26,13 +26,18 @@ public class CustomerDBDAO implements CustomerDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO customer (cust_name , password, email) values (?,?,?)");
+					.prepareStatement("INSERT INTO customer (cust_name , password, email) values (?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setString(1, customer.getCustName());
 			pstmt.setString(2, customer.getPassword());
 			pstmt.setString(3, (String) customer.getEmail());
 			pstmt.executeUpdate();
-
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			rs.next();
+			long id = rs.getLong(1);
+			customer.setId(id);
+			
 		} catch (SQLException e) {
 			throw new CouponSystemsException("create customer failed", e);
 		} finally {

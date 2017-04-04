@@ -23,16 +23,17 @@ public class Test {
 			AdminFacade adminfacade = (AdminFacade) CouponSystem.getInstance().login("Admin", "Admin", ClientType.ADMIN);
 
 			System.out.println("Admin Facade test");
-			System.out.println("===========");
+			System.out.println("=================");
 			Company company = new Company("TestCompany1", "1111", "vasya@vasya.com");
 			adminfacade.createCompany(company);
 			
 			System.out.println("created company " + adminfacade.getCompany(company));
-//			System.out.println("???ili gotovo???");
+			System.out.println("================");
 			company.setPassword("1111");
 			adminfacade.updateCompany(company);
 			//System.out.println("updated company " + adminfacade.getCompany(company));
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
+			System.out.println("==================================================");
 			
 			Customer customer = new Customer("TestCustomer1", "123456", "itsik190@gmail.com");
 			adminfacade.createCustomer(customer);
@@ -46,8 +47,8 @@ public class Test {
 			
 			
 			System.out.println("Test Company Facade:");
-			System.out.println("=========================");
-			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("itsik190@gmail.com", "1111", ClientType.COMPANY);
+			System.out.println("====================");
+			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("vasya@vasya.com", "1111", ClientType.COMPANY);
 			
 			Calendar cal = Calendar.getInstance();
 			cal.set(2017, Calendar.MARCH, 5);
@@ -179,7 +180,7 @@ public class Test {
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
 			System.out.println("00000000000");
 			CouponSystem.getInstance().shutDown();
-			System.out.println("11111111111");
+			System.out.println("11111shutDown111111");
 		} catch (CouponSystemsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -187,7 +188,7 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("2222222");
+		System.out.println("2222shutDown222");
 
 	}
 
