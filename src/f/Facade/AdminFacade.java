@@ -7,7 +7,12 @@ import java.util.Collection;
 import beans.dao.Company;
 import beans.dao.Coupon;
 import beans.dao.Customer;
-import d.dao.*;
+import d.dao.CompanyDAO;
+import d.dao.CompanyDBDAO;
+import d.dao.CouponDAO;
+import d.dao.CouponDBDAO;
+import d.dao.CustomerDAO;
+import d.dao.CustomerDBDAO;
 import e.Exeptions.CouponSystemsException;
 
 public class AdminFacade implements ClientFacade {
@@ -94,8 +99,12 @@ public class AdminFacade implements ClientFacade {
 	}
 
 	public Collection<Customer> getAllCustomers() throws CouponSystemsException {
+		System.out.println("intogetAllCustomer");
 		ArrayList<Customer> allCustomers = new ArrayList<>();
+		System.out.println("ithul Array of getAllCustomer");
 		allCustomers = customerDAO.getAllCoupons();
+		System.out.println("AllCustomer  " + allCustomers );
+		System.out.println("+++++++++++++++++++++++++");
 		return allCustomers;
 	}
 
@@ -119,15 +128,31 @@ public class AdminFacade implements ClientFacade {
 		}
 	}
 
-
-
-	
-
 	public Company getCompany(Company company) throws CouponSystemsException, Throwable {
 		company = compDAO.read(company);
 		if (company.getId() != 0) {
 			return company;
-		}else {
-				return null;
+		} else {
+			return null;
+		}
 	}
-}}
+
+	public void removeCompany(Company company) throws CouponSystemsException, Throwable {
+		company = compDAO.read(company);
+		ArrayList<Coupon> allThisCompanyCoupons;
+
+		allThisCompanyCoupons = compDAO.getCouponsByCompany(company);
+
+		for (Coupon coupon : allThisCompanyCoupons) {
+			ArrayList<Customer> allCustomers = customerDAO.getAllCustomers();
+			for (Customer customer : allCustomers) {
+				customerDAO.unLinkCustomerCoupon(customer, coupon);
+			}
+			compDAO.unLinkCompanyCoupon(company, coupon);
+			couponDAO.delete(coupon);
+		}
+		compDAO.delete(company);
+
+	}
+
+}

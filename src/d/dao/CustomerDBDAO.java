@@ -25,19 +25,20 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO customer (cust_name , password, email) values (?,?,?)",Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement pstmt = con.prepareStatement(
+					"INSERT INTO customer (cust_name , password, email) values (?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setString(1, customer.getCustName());
 			pstmt.setString(2, customer.getPassword());
 			pstmt.setString(3, (String) customer.getEmail());
 			pstmt.executeUpdate();
-			
+
 			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.next();
 			long id = rs.getLong(1);
 			customer.setId(id);
-			
+
 		} catch (SQLException e) {
 			throw new CouponSystemsException("create customer failed", e);
 		} finally {
@@ -145,7 +146,7 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	@Override
 	public ArrayList<Customer> getAllCustomers() throws CouponSystemsException, SQLException {
-		// TODO Auto-generated method stub
+
 		Connection con = null;
 		ArrayList<Customer> customers = new ArrayList<>();
 		try {
@@ -356,8 +357,36 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public ArrayList<Customer> getAllCoupons() {
-		// TODO Auto-generated method stub
+	public ArrayList<Customer> getAllCoupons() throws CouponSystemsException {
+		Connection con = null;
+		ArrayList<Customer> customers = new ArrayList<>();
+		try {
+			// get con from pool
+
+			String query = "select id,cust_name,password,email from CUSTOMER";
+			con = ConnectionPool.getInstance().getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Customer customer = new Customer();
+
+				customer.setId(rs.getLong("ID"));
+				customer.setCustName(rs.getString("CUST_NAME"));
+				customer.setPassword(rs.getString("PASSWORD"));
+				customer.setEmail(rs.getString("EMAIL"));
+				if (customer.getEmail() != null) {
+					customers.add(customer);
+				}
+
+			}
+		} catch (SQLException e) {
+			throw new CouponSystemsException("getAllCustomers failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
+
 		return null;
 	}
 

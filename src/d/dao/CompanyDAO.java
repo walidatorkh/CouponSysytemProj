@@ -11,9 +11,9 @@ import e.Exeptions.CouponSystemsException;
 public interface CompanyDAO {
 	public void createCompany(Company company) throws CouponSystemsException, SQLException, Throwable;
 
-	public void removeCompany(long companyId);
+	public void removeCompany(Company company2);
 
-	public void updateCompany(Company company);
+	public void updateCompany(Company company) throws CouponSystemsException;
 
 	public Company getCompany(long id);
 
@@ -42,7 +42,12 @@ public interface CompanyDAO {
 	void delete(Company company) throws CouponSystemsException, SQLException;
 
 	Company read(Company company) throws CouponSystemsException, SQLException;
+
+	public Company getCompanyById(Company company2);
+
+	public void removeCompany(long companyId);
 	
 	
 
 }
+

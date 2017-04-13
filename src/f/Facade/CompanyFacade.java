@@ -3,7 +3,7 @@ package f.Facade;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Collection;
 
 import beans.dao.Company;
 import beans.dao.Coupon;
@@ -106,10 +106,17 @@ public class CompanyFacade implements ClientFacade {
 	}
 
 	public CompanyFacade login(String email, String password) throws CouponSystemsException, Throwable {
+		System.out.println("into login");
 		Company company = new Company();
+		System.out.println("ithul company");
 		company.setEmail(email);
+		System.out.println("set email ");
 		CompanyFacade companyFacade = new CompanyFacade(company);
+		System.out.println("company Facade ithul");
+		company = compDAO.read(company);
+		System.out.println("read company");
 		if (company.getId() != 0 && password.equals(company.getPassword())) {
+			System.out.println("Company login success");
 			return companyFacade;
 		} else {
 			throw new CouponSystemsException("Company login not correct");

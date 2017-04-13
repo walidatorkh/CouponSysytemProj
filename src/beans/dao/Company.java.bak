@@ -1,5 +1,7 @@
 package beans.dao;
 
+import java.util.Collection;
+
 public class Company {
 
 	/**
@@ -15,10 +17,10 @@ public class Company {
 		private String compName;
 		private String password;
 		private String email;
-		//private Collection<Coupon> coupons;
+		private Collection<Coupon> coupons;
 
 
-		public Company(String name, String password, String email) {
+		public !Company(String name, String password, String email) {
 
 			
 			this.compName = name;
@@ -58,13 +60,13 @@ public class Company {
 			this.email = email;
 		}
 
-//		public Collection<Coupon> getCoupons() {
-//			return coupons;
-//		}
-//
-//		public void setCoupons(Collection<Coupon> coupons) {
-//			this.coupons = coupons;
-//		}
+		public Collection<Coupon> getCoupons() {
+			return coupons;
+		}
+
+		public void setCoupons(Collection<Coupon> coupons) {
+			this.coupons = coupons;
+		}
 
 		@Override
 		public String toString() {

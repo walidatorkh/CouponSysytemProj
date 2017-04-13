@@ -17,7 +17,7 @@ public interface CustomerDAO {
 
 	public Customer getCustomer(long id);
 
-	public Collection<Customer> getAllCustomers() throws CouponSystemsException, SQLException;
+	public ArrayList<Customer> getAllCustomers() throws CouponSystemsException, SQLException;
 
 	public Collection<Coupon> getCoupons();
 
@@ -31,7 +31,7 @@ public interface CustomerDAO {
 
 	public ArrayList<Coupon> getCoupnsByCustomer(Customer customer);
 
-	public ArrayList<Customer> getAllCoupons();
+	public ArrayList<Customer> getAllCoupons() throws CouponSystemsException;
 
 	public void unLinkCouponFromAllCustomers(Coupon coupon) throws CouponSystemsException, SQLException;
 

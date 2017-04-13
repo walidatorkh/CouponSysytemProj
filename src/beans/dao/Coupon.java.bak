@@ -24,8 +24,6 @@ public class Coupon {
 		this.amount = amount;
 		this.type = type;
 		this.message = message;
-		this.price = price;
-		this.image = image;
 
 	}
 
@@ -45,11 +43,12 @@ public class Coupon {
 		this.title = title;
 	}
 
+	public java.sql.Date getStartDate() {
+		return (java.sql.Date) startDate;
+	}
+
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-	public java.sql.Date getStartDate(){
-		return  (java.sql.Date) startDate;
 	}
 
 	public java.sql.Date getEndDate() {
@@ -111,15 +110,6 @@ public class Coupon {
 		long ts = System.currentTimeMillis();
 		Date cd = new Date(ts);
 		if (cd.after(startDate) && cd.before(endDate)) {
-			return true;
-		}
-		return false;
-	}
-
-	public Boolean isExpired() {
-		long ts = System.currentTimeMillis();
-		Date cd = new Date(ts);
-		if (cd.after(endDate)) {
 			return true;
 		}
 		return false;

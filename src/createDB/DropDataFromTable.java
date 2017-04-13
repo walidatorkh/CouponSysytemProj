@@ -15,23 +15,22 @@ public class DropDataFromTable {
 		String sqlCustomerCoupon = "DROP TABLE CustomerCoupon";
 		String sqlCompanyCoupon = "DROP TABLE CompanyCoupon";
 		try (Connection con = DriverManager.getConnection(url); Statement stmt = con.createStatement();) {
-				// Drop tables for maintenance purpose
-				stmt.executeUpdate(sqlCompany);
-				System.out.println("Company table has been dropped successfully!");
-				stmt.executeUpdate(sqlCustomer);
-				System.out.println("Customer table has been dropped successfully!");
-				stmt.executeUpdate(sqlCoupon);
-				System.out.println("Coupon table has been dropped successfully!");
-				stmt.executeUpdate(sqlCustomerCoupon);
-				System.out.println("CustomerCoupon table has been dropped successfully!");
-				stmt.executeUpdate(sqlCompanyCoupon);
-				System.out.println("CompanyCoupon table has been dropped successfully!");
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			// Drop tables for maintenance purpose
+			stmt.executeUpdate(sqlCompany);
+			System.out.println("Company table has been dropped successfully!");
+			stmt.executeUpdate(sqlCustomer);
+			System.out.println("Customer table has been dropped successfully!");
+			stmt.executeUpdate(sqlCoupon);
+			System.out.println("Coupon table has been dropped successfully!");
+			stmt.executeUpdate(sqlCustomerCoupon);
+			System.out.println("CustomerCoupon table has been dropped successfully!");
+			stmt.executeUpdate(sqlCompanyCoupon);
+			System.out.println("CompanyCoupon table has been dropped successfully!");
 
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 	}
 
+}

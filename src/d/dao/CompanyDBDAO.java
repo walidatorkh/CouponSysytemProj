@@ -133,9 +133,6 @@ public class CompanyDBDAO implements CompanyDAO {
 		} catch (SQLException e) {
 			throw new CouponSystemsException("delete failed", e);
 		} finally {
-			if (con != null) {
-				ConnectionPool.getInstance().returnToPool(con);
-			}
 		}
 
 	}
@@ -307,8 +304,6 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
-    
-
 	@Override
 	public Company getCompany(long id) {
 		// TODO Auto-generated method stub
@@ -404,9 +399,42 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public void updateCompany(Company company) {
+	public void updateCompany(Company company) throws CouponSystemsException {
+		Connection con = null;
+		try {
+			// Updates
+
+			String query = "update COMPANY set comp_name= ?, password = ? ,email = ? WHERE id = ?";
+			con = ConnectionPool.getInstance().getConnection();
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, company.getCompName());
+			pstmt.setString(2, company.getPassword());
+			pstmt.setString(3, company.getEmail());
+			pstmt.setLong(4, company.getId());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new CouponSystemsException("update company failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
+
+	}
+
+	@Override
+	public void removeCompany(Company company2) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public Company getCompanyById(Company company2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
