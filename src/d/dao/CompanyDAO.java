@@ -27,21 +27,19 @@ public interface CompanyDAO {
 
 	public ArrayList<Coupon> getCouponsByCompany(Company company) throws CouponSystemsException, SQLException;
 
-	//public Company read(Company company) throws CouponSystemsException, SQLException;
+	public Company read(Company company) throws CouponSystemsException, SQLException;
 	public Company getCompanyById(long id) throws CouponSystemsException, SQLException;
 	public Company getCompanyByEmail(String email) throws CouponSystemsException, SQLException;
 
 	public void removeCompanyCoupon(Company company, Coupon coupon);
 
-	public void linkCompanyCoupon(long companyId, Coupon coupon) throws CouponSystemsException, SQLException;
+	public void linkCompanyCoupon(Company company, Coupon coupon) throws CouponSystemsException, SQLException;
 
 	public void unLinkCompanyCoupon(Company company, Coupon coupon) throws CouponSystemsException, SQLException;
 
 	void update(Company company) throws CouponSystemsException, SQLException;
 
 	void delete(Company company) throws CouponSystemsException, SQLException;
-
-	Company read(Company company) throws CouponSystemsException, SQLException;
 
 	public Company getCompanyById(Company company2);
 

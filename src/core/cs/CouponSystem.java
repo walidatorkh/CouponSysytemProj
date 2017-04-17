@@ -47,7 +47,7 @@ public class CouponSystem {
 		 * @throws Throwable 
 		 * @throws CouponSystemException
 		 */
-		public ClientFacade login(String password, String email, ClientType clientType) throws Throwable {
+		public ClientFacade login(String email, String password, ClientType clientType) throws Throwable {
 
 			AdminFacade adminfacade = new AdminFacade();
 			CompanyFacade companyfacade = new CompanyFacade();
@@ -64,7 +64,7 @@ public class CouponSystem {
 
 			case CUSTOMER:
 				customerfacade = customerfacade.login(email, password);
-				return (ClientFacade) customerfacade;
+				return customerfacade;
 
 			default:
 				return null;

@@ -106,7 +106,7 @@ public class CouponDBDAO implements CouponDAO {
 			// Updates
 			
 			
-			String query = " update coupon set START_DATE = ?, END_DATE = ?, AMOUNT = ?, TYPE = ?, MESSAGE = ?, PRICE = ?, IMAGE = ? where TITLE = ?";
+			String query = " update coupon set STARTDATE = ?, ENDDATE = ?, AMOUNT = ?, TYPE = ?, MESSAGE = ?, PRICE = ?, IMAGE = ? where TITLE = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 

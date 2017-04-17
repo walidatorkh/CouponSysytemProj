@@ -5,7 +5,7 @@ public class Customer {
 	private String custName;
 	private String password;
 	// private Collection<Coupon> coupons;
-	public String getEmail;
+	public String email;
 	
 
 
@@ -20,7 +20,7 @@ public class Customer {
 	public Customer(String name, String password, String email) {
 		this.custName = name;
 		this.password = password;
-		this.getEmail = email;
+		this.email = email;
 	}
 
 	public void setId(long id) {
@@ -50,13 +50,13 @@ public class Customer {
 	// }
 
 	public void setEmail(String email) {
-		this.getEmail = email;
+		this.email = email;
 
 	}
 
 	public String getEmail() {
 		// TODO Auto-generated method stub
-		return null;
+		return email;
 	}
 
 	@Override

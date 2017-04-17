@@ -48,8 +48,9 @@ public class Coupon {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public java.sql.Date getStartDate(){
-		return  (java.sql.Date) startDate;
+
+	public java.sql.Date getStartDate() {
+		return (java.sql.Date) startDate;
 	}
 
 	public java.sql.Date getEndDate() {

@@ -16,6 +16,11 @@ import d.dao.CustomerDAO;
 import d.dao.CustomerDBDAO;
 import e.Exeptions.CouponSystemsException;
 
+/**
+* company Facade
+*
+*
+*/
 public class CompanyFacade implements ClientFacade {
 	private static CompanyDAO compDAO = new CompanyDBDAO();
 	private static CustomerDAO customerDAO = new CustomerDBDAO();
@@ -32,10 +37,21 @@ public class CompanyFacade implements ClientFacade {
 
 }
 
-	public void createCoupon(Coupon coupon, long companyId) throws CouponSystemsException, Throwable {
+/**
+* creates coupon and links it to Company
+* @param coupon
+ * @throws SQLException 
+* @throws CouponSystemException
+*/
+
+
+
+	public void createCoupon(Coupon coupon) throws CouponSystemsException, SQLException {
+
 		if (!couponDAO.titleExist(coupon)) {
 			CouponDAO.create(coupon);
-			compDAO.linkCompanyCoupon(companyId, coupon);
+                        coupon = couponDAO.read(coupon);   
+			compDAO.linkCompanyCoupon(company, coupon);
 		} else {
 			throw new CouponSystemsException("This title exist");
 		}
@@ -43,6 +59,11 @@ public class CompanyFacade implements ClientFacade {
 	}
 	
 	public void removeCoupon(Coupon coupon) throws CouponSystemsException, SQLException {
+/**
+	 * removes {@link Coupon} unlinks from company and customers
+	 * @param coupon
+	 * @throws CouponSystemException
+	 */
 		
 		coupon = couponDAO.read(coupon);
 		company = compDAO.read(company);
@@ -58,6 +79,12 @@ public class CompanyFacade implements ClientFacade {
 		couponDAO.update(coupon);
 	
 }
+/**
+	 * gets coupon by title or ID
+	 * @param coupon
+	 * @return
+	 * @throws CouponSystemException
+	 */
 
 	
 
@@ -68,7 +95,7 @@ public class CompanyFacade implements ClientFacade {
 
 	public Collection<Coupon> getAllMyCompanyCoupons(long companyId) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> coupons = new ArrayList<>();
-		Company company = compDAO.getCompany(companyId);
+		//Company company = compDAO.getCompany(companyId);
 		coupons = compDAO.getCouponsByCompany(company);
 		return coupons;
 	}
@@ -81,15 +108,15 @@ public class CompanyFacade implements ClientFacade {
 
 	public Collection<Coupon> getCouponsByPrice(Double price) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> allCoupons = new ArrayList<>();
-		ArrayList<Coupon> allCouposByPrice = new ArrayList<>();
+		ArrayList<Coupon> allCouponsByPrice = new ArrayList<>();
 
 		allCoupons = couponDAO.getAllCoupons();
 		for (Coupon coupon : allCoupons) {
 			if (coupon.getPrice() < price) {
-				allCouposByPrice.add(coupon);
+				allCouponsByPrice.add(coupon);
 			}
 		}
-		return allCouposByPrice;
+		return allCouponsByPrice;
 	}
 
 	public Collection<Coupon> getCouponsByDate(Date date) throws CouponSystemsException, Throwable {
@@ -114,7 +141,7 @@ public class CompanyFacade implements ClientFacade {
 		CompanyFacade companyFacade = new CompanyFacade(company);
 		System.out.println("company Facade ithul");
 		company = compDAO.read(company);
-		System.out.println("read company");
+		System.out.println("read company" + "==>" + company);
 		if (company.getId() != 0 && password.equals(company.getPassword())) {
 			System.out.println("Company login success");
 			return companyFacade;
@@ -123,5 +150,6 @@ public class CompanyFacade implements ClientFacade {
 		}
 
 	}
+	
 
 }

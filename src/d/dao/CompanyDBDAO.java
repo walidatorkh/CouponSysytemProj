@@ -212,7 +212,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public void linkCompanyCoupon(long companyId, Coupon coupon) throws CouponSystemsException, SQLException {
+	public void linkCompanyCoupon(Company company, Coupon coupon) throws CouponSystemsException, SQLException {
 
 		Connection con = null;
 		try {
@@ -221,7 +221,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			PreparedStatement pstmt = con
 					.prepareStatement("INSERT INTO Company_Coupon (COMPANY_ID , COUPON_ID) values (?,?)");
 
-			Company company = getCompanyById(companyId);
+			company = read(company);
 			coupon = couponDAO.read(coupon);
 
 			pstmt.setLong(1, company.getId());

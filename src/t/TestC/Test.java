@@ -18,8 +18,8 @@ public class Test {
 	public static void testCs() throws Throwable {
 
 		try {
-			AdminFacade adminfacade = (AdminFacade) CouponSystem.getInstance().login("Admin", "Admin",
-					ClientType.ADMIN);
+		AdminFacade adminfacade = (AdminFacade) CouponSystem.getInstance().login("Admin", "Admin",
+				ClientType.ADMIN);
 
 			System.out.println("Admin Facade test");
 			System.out.println("=================");
@@ -57,7 +57,7 @@ public class Test {
 
 			Coupon coupon = new Coupon("TestCoupon1", past, future, 5, CouponType.FOOD, "qwert", 35432.552454,
 					"Image.com");
-			companyfacade.createCoupon(coupon, ts);
+			companyfacade.createCoupon(coupon);
 			System.out.println("company get coupon " + companyfacade.getCoupon(coupon));
 
 			coupon.setAmount(10);
@@ -176,8 +176,8 @@ public class Test {
 
 			System.out.println("get all customers " + adminfacade.getAllCustomers());
 
-			adminfacade.removeCompany(company);
-			System.out.println("removed company");
+//			adminfacade.removeCompany(company);
+//			System.out.println("removed company");
 
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
 			System.out.println("==========================================");
