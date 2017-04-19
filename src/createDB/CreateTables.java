@@ -16,7 +16,7 @@ public class CreateTables {
 		String sqlCustomer = "CREATE TABLE CUSTOMER (id bigint primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), CUST_NAME varchar(25) unique, password varchar(10),email varchar(30))";
 		String sqlCoupon = "CREATE TABLE COUPON (id bigint primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),TITLE varchar(25), startdate date, enddate date, type varchar(25), AMOUNT int, MESSAGE varchar(25), PRICE double, IMAGE varchar(25))";
 		String sqlCustomerCoupon = "CREATE TABLE CustomerCoupon(CUST_ID bigint, COUPON_ID bigint, PRIMARY KEY (CUST_ID, COUPON_ID))";
-		String sqlCompanyCoupon = "CREATE TABLE CompanyCoupon(COMPANY_ID bigint, COUPON_ID bigint, PRIMARY KEY (COMP_ID, COUPON_ID))";
+		String sqlCompanyCoupon = "CREATE TABLE CompanyCoupon(COMPANY_ID bigint, COUPON_ID bigint, PRIMARY KEY (COMPANY_ID, COUPON_ID))";
 
 		try {
 			Connection con = DriverManager.getConnection(url);
