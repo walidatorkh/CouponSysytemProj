@@ -47,7 +47,7 @@ public class Test {
 			System.out.println("====================");
 			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("vasya@vasya.com", "1111",
 					ClientType.COMPANY);
-
+			System.out.println("Company id is: "+ companyfacade.getCompany().getId());
 			Calendar cal = Calendar.getInstance();
 			cal.set(2017, Calendar.MARCH, 5);
 			Date future = new Date(cal.getTime().getTime());

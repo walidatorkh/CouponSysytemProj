@@ -27,10 +27,7 @@ public interface CouponDAO {
 
 	public boolean titleExist(Coupon coupon) throws CouponSystemsException, SQLException;
 
-	public static void create(Coupon coupon) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void create(Coupon coupon) throws CouponSystemsException, SQLException  ;
 
 	public Coupon read(Coupon coupon) throws CouponSystemsException, SQLException;
 

@@ -190,7 +190,7 @@ public class CustomerDBDAO implements CustomerDAO {
 
 			customer = read(customer);
 
-			String query = "select COUPON_ID from Customer_Coupon where Cust_ID = ?";
+			String query = "select COUPON_ID from CustomerCoupon where Cust_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, customer.getId());
@@ -229,7 +229,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO Customer_Coupon (CUST_ID , COUPON_ID) values (?,?)");
+					.prepareStatement("INSERT INTO CustomerCoupon (CUST_ID , COUPON_ID) values (?,?)");
 
 			pstmt.setLong(1, customer.getId());
 			pstmt.setLong(2, coupon.getId());
@@ -252,7 +252,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM Customer_Coupon WHERE CUSTOMER_ID = ? and COUPON_ID = ? ";
+			String query = "DELETE FROM CustomerCoupon WHERE CUSTOMER_ID = ? and COUPON_ID = ? ";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, customer.getId());
@@ -310,7 +310,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM Customer_Coupon WHERE  COUPON_ID = ? ";
+			String query = "DELETE FROM CustomerCoupon WHERE  COUPON_ID = ? ";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -387,7 +387,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 
-		return null;
+		return customers;
 	}
 
 }

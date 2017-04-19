@@ -15,7 +15,7 @@ import p.ConnectionPool.ConnectionPool;
 
 public class CouponDBDAO implements CouponDAO {
 
-//	@Override
+	@Override
 	public void create(Coupon coupon) throws CouponSystemsException, SQLException {
 
 		Connection con = null;
@@ -23,7 +23,7 @@ public class CouponDBDAO implements CouponDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"INSERT INTO Coupon (TITLE,START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE) values (?,?,?,?,?,?,?,?)");
+					"INSERT INTO Coupon (TITLE,STARTDATE, ENDDATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE) values (?,?,?,?,?,?,?,?)");
 
 			pstmt.setString(1, coupon.getTitle());
 			pstmt.setDate(2, coupon.getStartDate());
@@ -52,20 +52,20 @@ public class CouponDBDAO implements CouponDAO {
 		Connection con = null;
 		try {
 			// get con from pool
-			
+			con = ConnectionPool.getInstance().getConnection();
 			String query = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			if (coupon.getTitle()==null) {
-				query = "select ID,TITLE,START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON where ID=?";
-				con = ConnectionPool.getInstance().getConnection();
+				query = "select ID,TITLE,STARTDATE, ENDDATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON where ID=?";
+				//con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setLong(1, coupon.getId());
 				rs = pstmt.executeQuery();
 			} else {
-				query = "select ID,TITLE,START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON where TITLE=?";
-				con = ConnectionPool.getInstance().getConnection();
+				query = "select ID,TITLE,STARTDATE, ENDDATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON where TITLE=?";
+				//con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, coupon.getTitle());
 				rs = pstmt.executeQuery();
@@ -76,8 +76,8 @@ public class CouponDBDAO implements CouponDAO {
 			while (rs.next()) {
 				coupon.setId(rs.getLong("ID"));
 				coupon.setTitle(rs.getString("TITLE"));
-				coupon.setStartDate(rs.getDate("START_DATE"));
-				coupon.setEndDate(rs.getDate("END_DATE"));
+				coupon.setStartDate(rs.getDate("STARTDATE"));
+				coupon.setEndDate(rs.getDate("ENDDATE"));
 				coupon.setAmount(rs.getInt("AMOUNT"));
 				coupon.setType(CouponType.valueOf(rs.getString("TYPE")));
 				coupon.setMessage(rs.getString("MESSAGE"));
@@ -164,7 +164,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			// get con from pool
 
-			String query = "select ID, TITLE,START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON";
+			String query = "select ID, TITLE,STARTDATE, ENDDATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE from COUPON";
 			con = ConnectionPool.getInstance().getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -172,8 +172,8 @@ public class CouponDBDAO implements CouponDAO {
 				Coupon coupon = new Coupon();
 				coupon.setId(rs.getLong("ID"));
 				coupon.setTitle(rs.getString("TITLE"));
-				coupon.setStartDate(rs.getDate("START_DATE"));
-				coupon.setEndDate(rs.getDate("END_DATE"));
+				coupon.setStartDate(rs.getDate("STARTDATE"));
+				coupon.setEndDate(rs.getDate("ENDDATE"));
 				coupon.setAmount(rs.getInt("AMOUNT"));
 				coupon.setType(CouponType.valueOf(rs.getString("TYPE")));
 				coupon.setMessage(rs.getString("MESSAGE"));

@@ -219,7 +219,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO Company_Coupon (COMPANY_ID , COUPON_ID) values (?,?)");
+					.prepareStatement("INSERT INTO CompanyCoupon (COMPANY_ID , COUPON_ID) values (?,?)");
 
 			company = read(company);
 			coupon = couponDAO.read(coupon);
@@ -246,7 +246,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM Company_Coupon WHERE COMPANY_ID = ? and COUPON_ID = ?";
+			String query = "DELETE FROM CompanyCoupon WHERE COMPANY_ID = ? and COUPON_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, company.getId());

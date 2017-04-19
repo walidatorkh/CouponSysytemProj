@@ -49,7 +49,7 @@ public class CompanyFacade implements ClientFacade {
 	public void createCoupon(Coupon coupon) throws CouponSystemsException, SQLException {
 
 		if (!couponDAO.titleExist(coupon)) {
-			CouponDAO.create(coupon);
+			couponDAO.create(coupon);
                         coupon = couponDAO.read(coupon);   
 			compDAO.linkCompanyCoupon(company, coupon);
 		} else {
@@ -149,6 +149,9 @@ public class CompanyFacade implements ClientFacade {
 			throw new CouponSystemsException("Company login not correct");
 		}
 
+	}
+	public Company getCompany() {
+		return company;
 	}
 	
 
