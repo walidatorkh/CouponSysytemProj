@@ -122,6 +122,7 @@ public class CompanyFacade implements ClientFacade {
 	public Collection<Coupon> getCouponsByDate(Date date) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> allCoupons = new ArrayList<>();
 		ArrayList<Coupon> AllCouponsByDate = new ArrayList<>();
+		System.out.println("ArrayList<>");
 		allCoupons = couponDAO.getAllCoupons();
 
 		for (Coupon coupon : allCoupons) {
