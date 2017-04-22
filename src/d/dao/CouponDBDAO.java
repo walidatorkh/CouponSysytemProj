@@ -175,7 +175,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setStartDate(rs.getDate("STARTDATE"));
 				coupon.setEndDate(rs.getDate("ENDDATE"));
 				coupon.setAmount(rs.getInt("AMOUNT"));
-				coupon.setType(CouponType.valueOf(rs.getString("TYPE")));
+				//coupon.setType(CouponType.valueOf(rs.getString("TYPE")));
 				coupon.setMessage(rs.getString("MESSAGE"));
 				coupon.setPrice(rs.getDouble("PRICE"));
 				coupon.setImage(rs.getString("IMAGE"));

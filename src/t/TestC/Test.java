@@ -23,18 +23,18 @@ public class Test {
 
 			System.out.println("Admin Facade test");
 			System.out.println("=================");
-			Company company = new Company("TestCompany1", "1111", "vasya@vasya.com");
+			Company company = new Company("TestCompanyAdmin", "1111", "TestCompanyAdmin@vasya.com");
 			adminfacade.createCompany(company);
 
 			System.out.println("created company " + adminfacade.getCompany(company));
 			System.out.println("================");
-			company.setPassword("1111");
+			company.setPassword("2222");
 			adminfacade.updateCompany(company);
 			System.out.println("updated company " + adminfacade.getCompany(company));
 			System.out.println("get all companies " + adminfacade.getAllCompanies());
 			System.out.println("==================================================");
 
-			Customer customer = new Customer("TestCustomer", "123456", "itsik190@gmail.com");
+			Customer customer = new Customer("TestCustomerAdmin", "123456", "TestCustomerAdmin@gmail.com");
 			adminfacade.createCustomer(customer);
 			System.out.println("get customer :" + adminfacade.getCustomer(customer));
 
@@ -45,8 +45,7 @@ public class Test {
 
 			System.out.println("Test Company Facade:");
 			System.out.println("====================");
-			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("vasya@vasya.com", "1111",
-					ClientType.COMPANY);
+			CompanyFacade companyfacade = (CompanyFacade) CouponSystem.getInstance().login("TestCompanyAdmin@vasya.com", "2222", ClientType.COMPANY);
 			System.out.println("Company id is: "+ companyfacade.getCompany().getId());
 			Calendar cal = Calendar.getInstance();
 			cal.set(2017, Calendar.MARCH, 5);
@@ -90,10 +89,10 @@ public class Test {
 			System.out.println("company get coupons by price" + companyfacade.getCouponsByPrice(3.0));
 			System.out.println("company get coupons by type" + companyfacade.getCouponsByType(CouponType.HEALTH));
 
-			CustomerFacade customerfacade = (CustomerFacade) CouponSystem.getInstance().login("vasiliy555@gmail.com",
+			CustomerFacade customerfacade = (CustomerFacade) CouponSystem.getInstance().login("TestCustomerAdmin@gmail.com",
 					"1111", ClientType.CUSTOMER);
-			// customerfacade.purchaseCoupon(coupon);
 
+//			 customerfacade.purchaseCoupon(coupon);
 			System.out.println("get customer purchased coupon " + customerfacade.getAllPurchasedCoupons());
 			System.out
 					.println("get customer purchased coupon " + customerfacade.getAllPurchasedCouponsByPrice(600000.0));

@@ -60,12 +60,14 @@ public class CompanyDBDAO implements CompanyDAO {
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setLong(1, company.getId());
+				System.out.println(company.getId());
 				rs = pstmt.executeQuery();
 			} else {
 				query = "select id,comp_name,password,email from COMPANY where email = ?";
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, company.getEmail());
+				System.out.println(company.getEmail());
 				rs = pstmt.executeQuery();
 			}
 
@@ -183,7 +185,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get coupons by company
 
-			String query = "select COUPON_ID from Company_Coupon where COMPANY_ID = ?";
+			String query = "select COUPON_ID from CompanyCoupon where COMPANY_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, company.getId());
