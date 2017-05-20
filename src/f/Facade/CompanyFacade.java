@@ -93,7 +93,7 @@ public class CompanyFacade implements ClientFacade {
 		return coupon;
 	}
 
-	public Collection<Coupon> getAllMyCompanyCoupons(long companyId) throws CouponSystemsException, Throwable {
+	public Collection<Coupon> getAllMyCompanyCoupons() throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> coupons = new ArrayList<>();
 		//Company company = compDAO.getCompany(companyId);
 		coupons = compDAO.getCouponsByCompany(company);

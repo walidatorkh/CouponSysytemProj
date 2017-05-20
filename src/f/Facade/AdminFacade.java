@@ -114,7 +114,7 @@ public class AdminFacade implements ClientFacade {
 	}
 
 	// gets coupons by company
-	public Collection<Coupon> getCoupoByCompany(Company company) throws CouponSystemsException, Throwable {
+	public Collection<Coupon> getCouponByCompany(Company company) throws CouponSystemsException, Throwable {
 		ArrayList<Coupon> couponByCompany = new ArrayList<>();
 		couponByCompany = compDAO.getCouponsByCompany(company);
 		return couponByCompany;

@@ -63,7 +63,7 @@ public class Test {
 			companyfacade.updateCoupon(coupon);
 			System.out.println("company update coupon " + companyfacade.getCoupon(coupon));
 
-			System.out.println("company get all my coupons " + companyfacade.getAllMyCompanyCoupons(ts));
+			System.out.println("company get all my coupons " + companyfacade.getAllMyCompanyCoupons());
 
 			System.out.println("company get coupons by date" + companyfacade.getCouponsByDate(past));
 
