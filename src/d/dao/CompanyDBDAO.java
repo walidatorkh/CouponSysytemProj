@@ -26,7 +26,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO COMPANY (comp_name , password,email) values (?,?,?)");
+					.prepareStatement("INSERT INTO Company (comp_name , password,email) values (?,?,?)");
 
 			pstmt.setString(1, company.getCompName());
 			pstmt.setString(2, company.getPassword());
@@ -56,14 +56,14 @@ public class CompanyDBDAO implements CompanyDAO {
 			ResultSet rs = null;
 
 			if (company.getEmail() == null) {
-				query = "select id,comp_name,password,email from COMPANY where ID = ?";
+				query = "select id,comp_name,password,email from Company where ID = ?";
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setLong(1, company.getId());
 				System.out.println(company.getId());
 				rs = pstmt.executeQuery();
 			} else {
-				query = "select id,comp_name,password,email from COMPANY where email = ?";
+				query = "select id,comp_name,password,email from Company where email = ?";
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, company.getEmail());
@@ -98,7 +98,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// Updates
 
-			String query = "update COMPANY set comp_name= ?, password = ? ,email = ? WHERE id = ?";
+			String query = "update Company set comp_name= ?, password = ? ,email = ? WHERE id = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -126,7 +126,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM COMPANY WHERE email like ?";
+			String query = "DELETE FROM Company WHERE email like ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, company.getEmail());
@@ -148,7 +148,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get con from pool
 
-			String query = "select id,comp_name,password,email from COMPANY";
+			String query = "select id,comp_name,password,email from Company";
 			con = ConnectionPool.getInstance().getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -185,7 +185,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get coupons by company
 
-			String query = "select COUPON_ID from CompanyCoupon where COMPANY_ID = ?";
+			String query = "select COUPON_ID from Company_Coupon where Company_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, company.getId());
@@ -221,7 +221,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO CompanyCoupon (COMPANY_ID , COUPON_ID) values (?,?)");
+					.prepareStatement("INSERT INTO Company_Coupon (Company_ID , COUPON_ID) values (?,?)");
 
 			company = read(company);
 			coupon = couponDAO.read(coupon);
@@ -248,7 +248,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM CompanyCoupon WHERE COMPANY_ID = ? and COUPON_ID = ?";
+			String query = "DELETE FROM Company_Coupon WHERE Company_ID = ? and COUPON_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, company.getId());
@@ -274,7 +274,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// get con from pool
 
-			String query = "select count (comp_name) AS numOfNames from COMPANY where comp_name = ?";
+			String query = "select count (comp_name) AS numOfNames from Company where comp_name = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, company.getCompName());
@@ -341,7 +341,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 
-			query = "select id,comp_name,password,email from COMPANY where ID = ?";
+			query = "select id,comp_name,password,email from Company where ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, id);
@@ -376,7 +376,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 
-			query = "select id,comp_name,password,email from COMPANY where email = ?";
+			query = "select id,comp_name,password,email from Company where email = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, email);
@@ -406,7 +406,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 			// Updates
 
-			String query = "update COMPANY set comp_name= ?, password = ? ,email = ? WHERE id = ?";
+			String query = "update Company set comp_name= ?, password = ? ,email = ? WHERE id = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 

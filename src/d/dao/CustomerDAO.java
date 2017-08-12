@@ -23,13 +23,13 @@ public interface CustomerDAO {
 
 	public boolean login(String custName, String password);
 
-	public void removeCustomerCoupon(Customer customer, Coupon coupon);
+	public void removeCustomerCoupon(Customer customer, Coupon coupon) throws CouponSystemsException;
 
 	public Boolean nameExist(Customer customer) throws CouponSystemsException, SQLException;
 
 	public Customer read(Customer customer) throws CouponSystemsException, SQLException;
 
-	public ArrayList<Coupon> getCoupnsByCustomer(Customer customer);
+	public ArrayList<Coupon> getCoupnsByCustomer(Customer customer) throws CouponSystemsException;
 
 	public ArrayList<Customer> getAllCoupons() throws CouponSystemsException;
 

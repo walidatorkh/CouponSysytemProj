@@ -1,6 +1,7 @@
 package t.TestC;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import beans.dao.Company;
@@ -70,19 +71,19 @@ public class Test {
 			System.out.println("company get coupons by price" + companyfacade.getCouponsByPrice(60000.0));
 			System.out.println("company get coupons by type" + companyfacade.getCouponsByType(CouponType.FOOD));
 
-			// Coupon coupon2 = new Coupon("TestCoupon2", past, past, 0,
-			// CouponType.HEALTH, "asdfg", 2.2, "Image2.com");
-			// companyfacade.createCoupon(coupon2);
-			// System.out.println("company get coupon 2 " +
-			// companyfacade.getCoupon(coupon2));
+			 Coupon coupon2 = new Coupon("TestCoupon2", past, past, 0,
+			 CouponType.HEALTH, "asdfg", 2.2, "Image2.com");
+			 companyfacade.createCoupon(coupon2);
+			 System.out.println("company get coupon 2 " +
+			 companyfacade.getCoupon(coupon2));
 
-			// coupon2.setImage("new new image");;
-			// companyfacade.updateCoupon(coupon2);
-			// System.out.println("company update coupon2 " +
-			// companyfacade.getCoupon(coupon2));
-			//
-			// System.out.println("company get all my coupons should be 2: " +
-			// companyfacade.getAllMyCompanyCoupons());
+			 coupon2.setImage("new new image");;
+			 companyfacade.updateCoupon(coupon2);
+			 System.out.println("company update coupon2 " +
+			 companyfacade.getCoupon(coupon2));
+			
+			 System.out.println("company get all my coupons should be 2: " +
+			 companyfacade.getAllMyCompanyCoupons());
 
 			System.out.println("company get coupons by date" + companyfacade.getCouponsByDate(past));
 
@@ -99,11 +100,7 @@ public class Test {
 			System.out.println(
 					"get customer purchased coupon " + customerfacade.getAllPurchasedCouponsByType(CouponType.FOOD));
 
-			//
-			//
-			//
-
-			//
+ 
 			// Coupon coupon = new Coupon();
 			// coupon.setTitle("Company 1 coupon");
 			// coupon.setAmount(1);
@@ -191,6 +188,23 @@ public class Test {
 		}
 		System.out.println("=========shutDown==========");
 
+	}
+	public static void delete() throws Throwable{
+		try {
+			AdminFacade adminfacade = (AdminFacade) CouponSystem.getInstance().login("Admin", "Admin", ClientType.ADMIN);
+			ArrayList<Company> companies= (ArrayList<Company>) adminfacade.getAllCompanies();
+			for (Company company : companies) {
+				adminfacade.removeCompany(company);
+			}
+			ArrayList<Customer> customers = (ArrayList<Customer>) adminfacade.getAllCustomers();
+			for (Customer customer : customers) {
+				adminfacade.removeCustomer(customer);
+			}
+			
+		} catch (CouponSystemsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

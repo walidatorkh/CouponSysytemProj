@@ -12,9 +12,9 @@ public class InsertIntoTables {
 
 		// Defining DB url
 		String url = "jdbc:derby://localhost:1527/sample;create=true;user=user;password=123";
-		String sqlInsertCompany = "INSERT INTO COMPANY (COMP_NAME, password, email) VALUES(?,?,?)";
-		String sqlInsertCustomer = "INSERT INTO CUSTOMER (CUST_NAME, password, email) VALUES(?,?,?)";
-		String sqlInsertCoupon = "INSERT INTO COUPON (TITLE, STARTDATE, ENDDATE, AMOUNT, MESSAGE, PRICE, IMAGE) VALUES(?,?,?,?,?,?,?)";
+		String sqlInsertCompany = "INSERT INTO Company (COMP_NAME, password, email) VALUES(?,?,?)";
+		String sqlInsertCustomer = "INSERT INTO Customer (CUST_NAME, password, email) VALUES(?,?,?)";
+		String sqlInsertCoupon = "INSERT INTO Coupon (TITLE, STARTDATE, ENDDATE, AMOUNT, MESSAGE, PRICE, IMAGE) VALUES(?,?,?,?,?,?,?)";
 
 		try (Connection con = DriverManager.getConnection(url);
 				Statement stmt = con.createStatement();

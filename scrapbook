@@ -16,7 +16,7 @@ Create table Company_Coupon (COMPANY_ID BIGINT, COUPON_ID BIGINT , PRIMARY KEY (
  INSERT INTO COMPANY (comp_name , password,email) values ('Test Company 3', 'Password 3','email2@coupon.com');
  INSERT INTO coupon (TITLE,START_DATE, END_DATE, AMOUNT, TYPE, MESSAGE, PRICE, IMAGE) values ('TITLE','2017-01-01', '2018-01-01', 30, 'RESTAURANTS', 'message', 1.1, 'IMAGE');
  INSERT INTO Company_Coupon (COMPANY_ID , COUPON_ID) values (1,1);
-
+connect 'jdbc:derby://localhost:1527/sample;create=true;user=user;password=123';
 exec CURRENT_DATE;
  
  ALTER TABLE customer ADD EMAIL  varchar(25);

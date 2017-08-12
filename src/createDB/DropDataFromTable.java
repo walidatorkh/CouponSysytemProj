@@ -9,11 +9,11 @@ public class DropDataFromTable {
 
 	public static void main(String[] args) {
 		String url = "jdbc:derby://localhost:1527/sample;create=true;user=user;password=123";
-		String sqlCompany = "DROP TABLE COMPANY ";
-		String sqlCustomer = "DROP TABLE CUSTOMER";
-		String sqlCoupon = "DROP TABLE COUPON";
-		String sqlCustomerCoupon = "DROP TABLE CustomerCoupon";
-		String sqlCompanyCoupon = "DROP TABLE CompanyCoupon";
+		String sqlCompany = "DROP TABLE Company ";
+		String sqlCustomer = "DROP TABLE Customer";
+		String sqlCoupon = "DROP TABLE Coupon";
+		String sqlCustomerCoupon = "DROP TABLE Customer_Coupon";
+		String sqlCompanyCoupon = "DROP TABLE Company_Coupon";
 		try (Connection con = DriverManager.getConnection(url); Statement stmt = con.createStatement();) {
 			// Drop tables for maintenance purpose
 			stmt.executeUpdate(sqlCompany);

@@ -26,7 +26,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"INSERT INTO customer (cust_name , password, email) values (?,?,?)",
+					"INSERT INTO Customer (cust_name , password, email) values (?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setString(1, customer.getCustName());
@@ -40,7 +40,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			customer.setId(id);
 
 		} catch (SQLException e) {
-			throw new CouponSystemsException("create customer failed", e);
+			throw new CouponSystemsException("create Customer failed", e);
 		} finally {
 			if (con != null) {
 				ConnectionPool.getInstance().returnToPool(con);
@@ -60,13 +60,13 @@ public class CustomerDBDAO implements CustomerDAO {
 			ResultSet rs = null;
 			if (customer.getEmail() == null) {
 
-				query = "select id,cust_name,password,email from CUSTOMER where ID = ?";
+				query = "select id,cust_name,password,email from Customer where ID = ?";
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setLong(1, customer.getId());
 				rs = pstmt.executeQuery();
 			} else {
-				query = "select id,cust_name,password,email from customer where email = ?";
+				query = "select id,cust_name,password,email from Customer where email = ?";
 				con = ConnectionPool.getInstance().getConnection();
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, customer.getEmail());
@@ -82,7 +82,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new CouponSystemsException("read customer failed", e);
+			throw new CouponSystemsException("read Customer failed", e);
 		} finally {
 			if (con != null) {
 				ConnectionPool.getInstance().returnToPool(con);
@@ -100,7 +100,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// Updates
 
-			String query = "update customer set cust_name= ?, password = ?  WHERE email = ?";
+			String query = "update Customer set cust_name= ?, password = ?  WHERE email = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -111,7 +111,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new CouponSystemsException("Update customer failed", e);
+			throw new CouponSystemsException("Update Customer failed", e);
 		} finally {
 			if (con != null) {
 				ConnectionPool.getInstance().returnToPool(con);
@@ -128,14 +128,14 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM customer WHERE email = ?";
+			String query = "DELETE FROM Customer WHERE email = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, (String) customer.getEmail());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new CouponSystemsException("delete customer failed", e);
+			throw new CouponSystemsException("delete Customer failed", e);
 		} finally {
 			if (con != null) {
 				ConnectionPool.getInstance().returnToPool(con);
@@ -152,7 +152,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "select id,cust_name,password,email from customer";
+			String query = "select id,cust_name,password,email from Customer";
 			con = ConnectionPool.getInstance().getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -190,7 +190,7 @@ public class CustomerDBDAO implements CustomerDAO {
 
 			customer = read(customer);
 
-			String query = "select COUPON_ID from CustomerCoupon where Cust_ID = ?";
+			String query = "select COUPON_ID from Customer_Coupon where Cust_ID = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, customer.getId());
@@ -229,7 +229,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			// get con from pool
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("INSERT INTO CustomerCoupon (CUST_ID , COUPON_ID) values (?,?)");
+					.prepareStatement("INSERT INTO Customer_Coupon (CUST_ID , COUPON_ID) values (?,?)");
 
 			pstmt.setLong(1, customer.getId());
 			pstmt.setLong(2, coupon.getId());
@@ -252,7 +252,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM CustomerCoupon WHERE CUSTOMER_ID = ? and COUPON_ID = ? ";
+			String query = "DELETE FROM Customer_Coupon WHERE CUSTOMER_ID = ? and COUPON_ID = ? ";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setLong(1, customer.getId());
@@ -277,7 +277,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "select count (cust_name) AS numOfNames from CUSTOMER where cust_name = ?";
+			String query = "select count (cust_name) AS numOfNames from Customer where cust_name = ?";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, customer.getCustName());
@@ -310,7 +310,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			// get con from pool
 
-			String query = "DELETE FROM CustomerCoupon WHERE  COUPON_ID = ? ";
+			String query = "DELETE FROM Customer_Coupon WHERE  COUPON_ID = ? ";
 			con = ConnectionPool.getInstance().getConnection();
 			PreparedStatement pstmt = con.prepareStatement(query);
 
@@ -345,16 +345,65 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public void removeCustomerCoupon(Customer customer, Coupon coupon) {
-		// TODO Auto-generated method stub
+	public void removeCustomerCoupon(Customer customer, Coupon coupon) throws CouponSystemsException {
+		Connection con = null;
+		try {
+			// get con from pool
 
+			String query = "DELETE FROM Customer_Coupon WHERE CUSTOMER_ID = ? and COUPON_ID = ? ";
+			con = ConnectionPool.getInstance().getConnection();
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setLong(1, customer.getId());
+			pstmt.setLong(2, coupon.getId());
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new CouponSystemsException("unLinkCustomerCoupon failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
 	}
 
 	@Override
-	public ArrayList<Coupon> getCoupnsByCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Coupon> getCoupnsByCustomer(Customer customer) throws CouponSystemsException {
+		Connection con = null;
+		ArrayList<Coupon> coupons = new ArrayList<>();
+		try {
+			// get coupons by customer
+			
+			customer = read(customer);
+
+			String query = "select COUPON_ID from Customer_Coupon where Cust_ID = ?";
+			con = ConnectionPool.getInstance().getConnection();
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setLong(1, customer.getId());
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				Coupon coupon = new Coupon();
+
+				coupon.setId(rs.getLong("COUPON_ID"));
+				if (coupon.getId()!=0) {
+					coupons.add(couponDAO.read(coupon));
+				}
+				
+
+			}
+
+		} catch (SQLException e) {
+			throw new CouponSystemsException("getCouponsByCompany failed", e);
+		} finally {
+			if (con != null) {
+				ConnectionPool.getInstance().returnToPool(con);
+			}
+		}
+
+		return coupons;
 	}
+
+	
 
 	@Override
 	public ArrayList<Customer> getAllCoupons() throws CouponSystemsException {
